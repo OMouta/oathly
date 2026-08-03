@@ -20,6 +20,7 @@ import type { Provider } from "../packages/oathly/src/types.ts";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const outputDir = join(root, "docs", "providers");
+const sidebarPath = join(root, "docs", ".vitepress", "providers.json");
 const check = process.argv.includes("--check");
 
 const TRUST_LABEL = {
@@ -163,6 +164,18 @@ const files = new Map<string, string>([
       renderProvider(name, provider),
     ],
   ),
+  // Docs-site sidebar, generated alongside the pages so the two cannot drift.
+  [
+    sidebarPath,
+    `${JSON.stringify(
+      entries.map(([name, provider]) => ({
+        text: provider.meta?.name ?? name,
+        link: `/providers/${provider.id}`,
+      })),
+      null,
+      2,
+    )}\n`,
+  ],
 ]);
 
 if (check) {
@@ -179,7 +192,9 @@ if (check) {
   }
   console.log(`Provider docs are up to date (${files.size} files).`);
 } else {
-  await mkdir(outputDir, { recursive: true });
+  for (const path of new Set([...files.keys()].map((file) => dirname(file)))) {
+    await mkdir(path, { recursive: true });
+  }
   for (const [path, contents] of files) await writeFile(path, contents, "utf8");
-  console.log(`Wrote ${files.size} files to docs/providers/.`);
+  console.log(`Wrote ${files.size} files.`);
 }

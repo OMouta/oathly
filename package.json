@@ -9,6 +9,9 @@
     "typecheck": "pnpm -r typecheck",
     "docs:generate": "tsx scripts/generate-provider-docs.ts",
     "docs:check": "tsx scripts/generate-provider-docs.ts --check",
+    "docs:dev": "vitepress dev docs",
+    "docs:build": "vitepress build docs",
+    "docs:preview": "vitepress preview docs",
     "smoke": "node scripts/smoke.mjs",
     "check": "pnpm run typecheck && pnpm run test && pnpm run docs:check"
   },
@@ -18,6 +21,7 @@
     "publint": "^0.3.12",
     "tsx": "^4.19.4",
     "typescript": "^5.8.3",
+    "vitepress": "^1.6.3",
     "vitest": "^3.1.3"
   }
 }

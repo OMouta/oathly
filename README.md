@@ -32,8 +32,11 @@ const { tokens, profile } = await login.callback(request);      // /auth/callbac
 pnpm install
 pnpm run check          # typecheck + test + docs:check
 pnpm run build
-pnpm run docs:generate  # regenerate docs/providers from the definitions
 pnpm run smoke          # drive a full login against the built output
+
+pnpm run docs:generate  # regenerate docs/providers from the definitions
+pnpm run docs:dev       # docs site, local
+pnpm run docs:build     # docs site, production
 ```
 
 Node 20+. Use `pnpm run docs:generate`, not `pnpm docs` — the latter is a built-in pnpm command.

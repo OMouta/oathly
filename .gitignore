@@ -9,3 +9,7 @@ coverage/
 
 # Internal design doc — not published
 PLAN.md
+
+# Docs site build output
+docs/.vitepress/dist/
+docs/.vitepress/cache/

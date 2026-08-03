@@ -1,0 +1,66 @@
+[
+  {
+    "text": "Apple",
+    "link": "/providers/apple"
+  },
+  {
+    "text": "Bitbucket",
+    "link": "/providers/bitbucket"
+  },
+  {
+    "text": "Discord",
+    "link": "/providers/discord"
+  },
+  {
+    "text": "Dropbox",
+    "link": "/providers/dropbox"
+  },
+  {
+    "text": "Facebook",
+    "link": "/providers/facebook"
+  },
+  {
+    "text": "GitHub",
+    "link": "/providers/github"
+  },
+  {
+    "text": "GitLab",
+    "link": "/providers/gitlab"
+  },
+  {
+    "text": "Google",
+    "link": "/providers/google"
+  },
+  {
+    "text": "LinkedIn",
+    "link": "/providers/linkedin"
+  },
+  {
+    "text": "Microsoft",
+    "link": "/providers/microsoft"
+  },
+  {
+    "text": "Notion",
+    "link": "/providers/notion"
+  },
+  {
+    "text": "Reddit",
+    "link": "/providers/reddit"
+  },
+  {
+    "text": "Slack",
+    "link": "/providers/slack"
+  },
+  {
+    "text": "Spotify",
+    "link": "/providers/spotify"
+  },
+  {
+    "text": "Twitch",
+    "link": "/providers/twitch"
+  },
+  {
+    "text": "X (Twitter)",
+    "link": "/providers/twitter"
+  }
+]
