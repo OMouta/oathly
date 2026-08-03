@@ -1,0 +1,49 @@
+{
+  "name": "@oathly/testing",
+  "version": "0.1.0",
+  "description": "In-process mock OAuth 2.0 / OIDC authorization server for testing oathly logins without network access.",
+  "type": "module",
+  "license": "MIT",
+  "author": "OMouta",
+  "homepage": "https://github.com/OMouta/oathly/tree/main/packages/testing#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/OMouta/oathly.git",
+    "directory": "packages/testing"
+  },
+  "bugs": "https://github.com/OMouta/oathly/issues",
+  "sideEffects": false,
+  "files": ["dist"],
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": { "types": "./dist/index.d.ts", "default": "./dist/index.js" },
+      "require": { "types": "./dist/index.d.cts", "default": "./dist/index.cjs" }
+    },
+    "./package.json": "./package.json"
+  },
+  "publishConfig": { "access": "public", "provenance": true },
+  "scripts": {
+    "build": "tsdown",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit"
+  },
+  "keywords": ["oauth", "oidc", "testing", "mock", "oathly"],
+  "dependencies": {
+    "jose": "^6.0.11"
+  },
+  "peerDependencies": {
+    "oathly": "workspace:^"
+  },
+  "devDependencies": {
+    "oathly": "workspace:*",
+    "tsdown": "^0.22.14",
+    "typescript": "^5.8.3",
+    "vitest": "^3.1.3"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

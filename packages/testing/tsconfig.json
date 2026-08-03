@@ -1,0 +1,10 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "noEmit": true,
+    "paths": {
+      "oathly": ["../oathly/src/index.ts"]
+    }
+  },
+  "include": ["src", "test", "tsdown.config.ts"]
+}

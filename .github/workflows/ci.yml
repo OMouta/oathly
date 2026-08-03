@@ -1,0 +1,79 @@
+name: CI
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    name: Node ${{ matrix.node }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        node: [20, 22, 24]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm run typecheck
+      - run: pnpm run test
+      # Provider docs are generated from the definitions; this fails if someone
+      # edited a provider without regenerating them.
+      - run: pnpm run docs:check
+
+  runtimes:
+    name: ${{ matrix.runtime }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        runtime: [node, bun, deno]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - uses: oven-sh/setup-bun@v2
+        if: matrix.runtime == 'bun'
+      - uses: denoland/setup-deno@v2
+        if: matrix.runtime == 'deno'
+        with:
+          deno-version: v2.x
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm run build
+      # "Runs everywhere" is tested against the built output, not claimed.
+      - if: matrix.runtime == 'node'
+        run: node scripts/smoke.mjs
+      - if: matrix.runtime == 'bun'
+        run: bun scripts/smoke.mjs
+      - if: matrix.runtime == 'deno'
+        run: deno run --allow-read --allow-env --allow-net --node-modules-dir=auto scripts/smoke.mjs
+
+  package:
+    name: Package health
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm run build
+      # Catches broken exports maps, wrong types paths, and CJS/ESM mismatches
+      # before they reach anyone's node_modules.
+      - run: pnpm -r --filter "./packages/*" exec publint
+      - run: pnpm -r --filter "./packages/*" exec attw --pack .
