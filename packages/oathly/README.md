@@ -1,6 +1,13 @@
-# oathly
+<p align="center">
+  <img src="https://raw.githubusercontent.com/OMouta/oathly/main/assets/oathly-mark.png" alt="oathly" width="128" />
+</p>
 
-OAuth 2.0 and OpenID Connect for any framework. You get tokens and a verified identity; you own your sessions.
+<h1 align="center">oathly</h1>
+
+<p align="center">
+  OAuth 2.0 and OpenID Connect for any framework.<br />
+  You get tokens and a verified identity; you own your sessions.
+</p>
 
 ```bash
 npm i oathly
